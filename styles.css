@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px; /* Lebar maksimum container */
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.flex-container {
+    display: flex; /* Menggunakan Flexbox */
+    justify-content: space-between; /* Memisahkan ruang antara tabel dan grafik */
+    margin-top: 20px; /* Jarak atas */
+}
+
+.table-container, .chart-container {
+    flex: 1; /* Membuat kedua elemen memiliki lebar yang sama */
+    margin-right: 20px; /* Jarak antara tabel dan grafik */
+}
+
+.table-container:last-child {
+    margin-right: 0; /* Menghapus margin kanan untuk elemen terakhir */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #ddd; /* Define border color */
+}
+
+th, td {
+    padding: 12px; /* Add padding for better spacing */
+    text-align: left; /* Align*/
+}
