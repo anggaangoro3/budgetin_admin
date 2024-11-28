@@ -1,17 +1,29 @@
-body {
+body  {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #37b5ea;
     margin: 0;
     padding: 20px;
 }
 
-.container {
+.container_index {
+
     max-width: 1200px; /* Lebar maksimum container */
     margin: auto;
-    background: #fff;
+    background: #ffffff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.chart-container {
+
+    max-width: 600px;
+    flex: 1; /* Membuat kedua elemen memiliki lebar yang sama */
+    margin-right: 10px; /* Jarak antara tabel dan grafik */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) ;
+}
+.batang{
+    margin: 5px;
+    background-blend-mode: multiply;
 }
 
 h1, h2 {
@@ -19,14 +31,9 @@ h1, h2 {
 }
 
 .flex-container {
-    display: flex; /* Menggunakan Flexbox */
+ /* Menggunakan Flexbox */
     justify-content: space-between; /* Memisahkan ruang antara tabel dan grafik */
     margin-top: 20px; /* Jarak atas */
-}
-
-.table-container, .chart-container {
-    flex: 1; /* Membuat kedua elemen memiliki lebar yang sama */
-    margin-right: 20px; /* Jarak antara tabel dan grafik */
 }
 
 .table-container:last-child {
@@ -36,7 +43,7 @@ h1, h2 {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 table, th, td {
@@ -46,4 +53,136 @@ table, th, td {
 th, td {
     padding: 12px; /* Add padding for better spacing */
     text-align: left; /* Align*/
+}
+.buttonStyle {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.buttonStyle:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+}
+
+/* styles.css add_user.php */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-container {
+    text-align: center; /* Center the button */
+    margin-top: 20px;  /* Optional: Add some space above the button */
+}
+
+.styled-button {
+    background-color: blue; /* Set button background color to blue */
+    color: white;           /* Set text color to white */
+    padding: 10px 20px;    /* Add padding for better appearance */
+    border: none;          /* Remove default border */
+    border-radius: 5px;    /* Optional: Add rounded corners */
+    cursor: pointer;        /* Change cursor to pointer on hover */
+    font-size: 16px;        /* Set font size */
+}
+
+.styled-button:hover {
+    background-color: darkblue; /* Change color on hover for effect */
+}
+/* styles.css Tombol Back di add_user.php*/
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Light background for contrast */
+}
+
+.back-button-container {
+    position: absolute; /* Positioning the container absolutely */
+    top: 20px;         /* Distance from the top */
+    left: 20px;        /* Distance from the left */
+}
+
+.back-button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;               /* White text color */
+    border: none;               /* No border */
+    border-radius: 5px;        /* Rounded corners */
+    padding: 10px 15px;        /* Padding for better appearance */
+    font-size: 16px;           /* Font size */
+    cursor: pointer;            /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.back-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* CSS untuk popup */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1000;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.popup-content button {
+    margin-top: 10px;
+}
+
+.search-container {
+    margin-bottom: 20px;
 }
