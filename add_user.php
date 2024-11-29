@@ -1,6 +1,7 @@
 <?php
-global $conn;
 include 'db.php';
+global $conn;
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];

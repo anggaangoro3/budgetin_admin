@@ -1,4 +1,5 @@
 <?php
+require_once 'db.php';
 global $conn;
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['phoneSearch'])) {
     $phone = $_POST['phoneSearch'];
@@ -15,21 +16,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['phoneSearch'])) {
         echo "<script>alert('Pengguna tidak ditemukan!');</script>";
     }
 }
-?>
 
-<?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
+    $user_id = $_POST['user_id'];
     $name = $_POST['name'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
     $balance = $_POST['balance'];
+    $password = $_POST['password'];
     $originalPhone = $_POST['phoneHidden'];
 
-    $updateQuery = "UPDATE users SET name='$name', phone='$phone', email='$email', balance='$balance' WHERE phone='$originalPhone'";
+
+    $updateQuery = "UPDATE users SET user_id='$user_id', name='$name', phone='$phone', email='$email', balance='$balance',password='$password' WHERE phone='$originalPhone'";
     if ($conn->query($updateQuery) === TRUE) {
         echo "<script>
             alert('Data berhasil diubah!');
-            window.location.href = 'index.php';
+            window.location.href = 'edit_user.php';
         </script>";
     } else {
         echo "<script>alert('Terjadi kesalahan: " . $conn->error . "');</script>";
@@ -43,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adm-Budgetin</title>
+    <title>Edit User - Budgetin</title>
     <link rel="stylesheet" href="styles.css"> <!-- Sertakan file CSS -->
     <script>
         // Fungsi untuk menampilkan popup
@@ -64,6 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
     </script>
 </head>
 <body>
+<div class="back-button-container">
+    <button onclick="window.location.href='index.php'" class="buttonStyle">Kembali</button>
+</div>
 <div class="container_index">
     <h1>Dashboard Admin - Budgetin</h1>
     <div class="flex-container">
@@ -101,20 +106,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
         }
     </script>
 
-
     <!-- Bagian Popup Edit -->
     <div id="editPopup" class="popup" style="display: none;">
         <div class="popup-content">
             <span class="close" onclick="closeEditPopup()">&times;</span>
             <h2>Edit Pengguna</h2>
-            <form id="editForm" method="POST" action="index.php">
+            <form id="editForm" method="POST">
                 <input type="hidden" name="phoneHidden" id="editFormPhoneHidden">
+                <label for="editFormUserID">ID Pengguna:</label>
+                <input type="number" id="editFormUser_Id" name="user_id" required>
                 <label for="editFormName">Name:</label>
                 <input type="text" id="editFormName" name="name" required>
                 <label for="editFormPhone">Phone:</label>
                 <input type="text" id="editFormPhone" name="phone" required>
                 <label for="editFormEmail">Email:</label>
                 <input type="email" id="editFormEmail" name="email" required>
+                <label for="editFormPassword">Password:</label>
+                <input type="password" id="editFormEmail" name="password" required>
                 <label for="editFormBalance">Balance:</label>
                 <input type="number" id="editFormBalance" name="balance" required>
                 <button type="submit" name="update" class="styled-button">Ganti</button>

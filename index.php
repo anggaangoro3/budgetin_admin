@@ -24,54 +24,7 @@ if ($result) {
 ?>
 
 
-<?php
-global $conn;
-include 'db.php';
 
-$response = ['status' => 'error', 'message' => ''];
-
-// Jika nomor telepon diterima untuk pencarian
-if (isset($_POST['search_phone'])) {
-    $phone = $_POST['search_phone'];
-
-    $stmt = $conn->prepare("SELECT * FROM users WHERE phone = ?");
-    $stmt->bind_param('s', $phone); // 's' untuk string
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $response = ['status' => 'error', 'message' => ''];
-    if ($result->num_rows > 0) {
-        $response['status'] = 'success';
-        $response['data'] = $result->fetch_assoc();
-    } else {
-        $response['message'] = 'Pengguna tidak ditemukan!';
-    }
-
-    echo json_encode($response);
-    exit;
-}
-
-// Jika data untuk pembaruan diterima
-if (isset($_POST['edit_user'])) {
-    $user_id = $_POST['user_id'];
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-    $balance = $_POST['balance'];
-
-    // Update data pengguna
-    $sql = "UPDATE users SET name='$name', phone='$phone', email='$email', balance='$balance' WHERE user_id=$user_id";
-
-    if ($conn->query($sql) === TRUE) {
-        $response['status'] = 'success';
-        $response['message'] = 'Data berhasil diperbarui!';
-    } else {
-        $response['message'] = 'Error: ' . $conn->error;
-    }
-    echo json_encode($response);
-    exit;
-}
-?>
 <?php
 /* Delete data berdasarkan ID */
 if (isset($_GET['delete'])) {
@@ -98,6 +51,29 @@ if (isset($_GET['delete'])) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Sertakan Chart.js -->
 </head>
 <body>
+<nav>
+    <ul>
+        <li>
+            <a>
+                <img src="img/favicon.png" alt="BudgetIn">
+                <span class="nav-item">Budgetin</span>
+            </a>
+        </li>
+        <li><a href="#">
+                <i class="fas-home"></i>
+                <span class="nav-item">Dashboard</span>
+            </a></li>
+        <li><a href="#">
+                <i class="fas-user"></i>
+                <span class="nav-item">Tabel User</span>
+            </a></li>
+        <li><a href="#">
+                <i class="fas-edit"></i>
+                <span class="nav-item">Edit</span>
+            </a></li>
+    </ul>
+
+</nav>
 <div class="container_index">
     <h1>Dashboard Admin - Budgetin</h1>
     <div class="flex-container">
@@ -125,7 +101,6 @@ if (isset($_GET['delete'])) {
                             <td><?php echo htmlspecialchars($user['email']); ?></td>
                             <td><?php echo htmlspecialchars($user['balance']); ?></td>
                             <td>
-                                <a href="edit_user.php?id=<?php echo $user['user_id']; ?>">Edit</a> |
                                 <a href="index.php?delete=<?php echo $user['user_id']; ?>" onclick="return confirm('Apakah Anda yakin?')">Delete</a>
                             </td>
                         </tr>

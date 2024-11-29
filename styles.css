@@ -186,3 +186,14 @@ body {
 .search-container {
     margin-bottom: 20px;
 }
+
+/* css navigasi bar */
+nav{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.1rem 2rem;
+}
+nav div img{
+    width: 180px;
+}
