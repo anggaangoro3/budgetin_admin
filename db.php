@@ -1,5 +1,5 @@
 <?php
-$host = "localhost"; // Perbaikan: Menghapus '@'
+$host = "localhost";
 $user = "root";
 $password = "";
 $database = "db_budgetin";
