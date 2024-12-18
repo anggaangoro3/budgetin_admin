@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
 
     if ($conn->query($sql) === TRUE) {
         echo "Pengguna berhasil dihapus!";
-        header("Location: index.php");
+        header("Location: admin.php");
         exit;
     } else {
         echo "Error: " . $conn->error;

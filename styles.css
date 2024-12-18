@@ -3,8 +3,66 @@ body  {
     background-color: #37b5ea;
     margin: 0;
     padding: 20px;
+    height: 100vh;
+}
+.dashboard-container{
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100%;
+}
+.main-conten{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    overflow-y: auto;
+}
+.main-header h1 {
+    margin: 0 0 1rem 0;
+}
+.charts-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    height: 100%;
+    flex-wrap: wrap;
+}
+.chart-container{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.chart-container-line {
+    display: flex;
+    width: 600px;
+    margin: 20px 10px 20px auto;
+    position: relative;
+    background-color: #ecf0f1;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+
+.chart-container-bar {
+    display: flex;
+    width: 600px;
+    margin: 20px auto 20px 10px;
+    background-color: #ecf0f1;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.teks-grafik{
+    margin: auto;
+    text-align: center;
+}
 .container_index {
 
     max-width: 1200px; /* Lebar maksimum container */
@@ -13,13 +71,6 @@ body  {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.chart-container {
-
-    max-width: 600px;
-    flex: 1; /* Membuat kedua elemen memiliki lebar yang sama */
-    margin-right: 10px; /* Jarak antara tabel dan grafik */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) ;
 }
 .batang{
     margin: 5px;
@@ -31,7 +82,7 @@ h1, h2 {
 }
 
 .flex-container {
- /* Menggunakan Flexbox */
+    /* Menggunakan Flexbox */
     justify-content: space-between; /* Memisahkan ruang antara tabel dan grafik */
     margin-top: 20px; /* Jarak atas */
 }
@@ -72,6 +123,91 @@ th, td {
     background-color: #0056b3; /* Darker shade for hover effect */
 }
 
+/* Navigasi Sidebar */
+.naviganteng {
+    position: fixed; /* Pastikan tetap berada di posisi yang sama saat scrolling */
+    top: 0;
+    left: 0;
+    width: 70px; /* Lebar awal saat sidebar tertutup */
+    height: 100%;
+    background-color: #ffffff;
+    overflow-x: hidden; /* Menghindari overflow horizontal */
+    transition: width 0.3s; /* Transisi untuk lebar */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.naviganteng:hover {
+    width: 120px; /* Lebar saat hover */
+}
+
+.naviganteng ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.naviganteng li {
+    position: relative;
+    margin: 20px 0;
+    padding: 0;
+}
+
+.naviganteng a {
+    display: flex;
+    align-items: center;
+    color: #555;
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.naviganteng a:hover {
+    background-color: #e6e6e6;
+    color: #333;
+}
+
+.naviganteng .logonav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0; /* Beri ruang agar gambar terlihat proporsional */
+    text-align: center; /* Posisi gambar tetap di tengah */
+}
+
+.naviganteng .logonav img {
+    width: 75%;
+    height: auto;
+    border-radius: 50%;
+    transition: transform 0.3s ease,  width 0.3s ease; /* Efek transisi untuk scaling */
+}
+.naviganteng:hover .logonav img {
+
+    width: 50%; /* Menyesuaikan dengan lebar maksimal sidebar */
+    height: auto; /* Tinggi gambar sama dengan lebarnya */
+    transform: scale(1);    /* Gambar membesar sedikit saat sidebar terbuka */
+}
+
+.naviganteng .nav-item {
+    align-items: center;
+    display: none; /* Disembunyikan saat sidebar tertutup */
+    margin-left: 10px;
+}
+
+.naviganteng:hover .nav-item {
+    display: inline-block; /* Ditampilkan saat sidebar terbuka */
+}
+/* Logout Tombol */
+.naviganteng ul li a.logout {
+    margin-top: auto; /* Dorong tombol logout ke bagian bawah */
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 /* styles.css add_user.php */
 body {
     font-family: Arial, sans-serif;
@@ -161,39 +297,109 @@ body {
     background-color: #0056b3; /* Darker blue on hover */
 }
 
-/* CSS untuk popup */
+/* Popup Background */
 .popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border: 1px solid #ccc;
-    padding: 20px;
-    z-index: 1000;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    position: fixed; /* Tetap di layar saat scrolling */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Latar belakang semi transparan */
+    display: none; /* Sembunyikan popup secara default */
+    justify-content: center; /* Pusatkan secara horizontal */
+    align-items: center; /* Pusatkan secara vertikal */
+    z-index: 1000; /* Letakkan di atas elemen lain */
 }
 
+/* Popup Content */
 .popup-content {
-    max-width: 400px;
-    margin: 0 auto;
+    background: #fff;
+    border-radius: 10px;
+    width: 90%; /* Responsif untuk layar kecil */
+    max-width: 400px; /* Lebar maksimum */
+    padding: 20px;
+    position: relative;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Bayangan */
+    text-align: center;
 }
 
-.popup-content button {
-    margin-top: 10px;
+/* Close Button */
+.popup-content .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    background: none;
+    border: none;
 }
 
-.search-container {
-    margin-bottom: 20px;
+/* Logo */
+.popup-logo {
+    text-align: center;
+    margin-bottom: 15px;
 }
 
-/* css navigasi bar */
-nav{
-    background-color: white;
+.popup-logo-img {
+    max-width: 100px;
+    height: auto;
+}
+
+/* Form */
+.popup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.popup-form .form-group {
     display: flex;
     justify-content: space-between;
-    padding: 0.1rem 2rem;
+    align-items: center;
+    gap: 10px;
 }
-nav div img{
-    width: 180px;
+
+.popup-form .form-group label {
+    flex: 1; /* Responsif */
+    font-weight: bold;
+    color: #333;
 }
+.popup-form .form-group input {
+    flex: 2; /* Responsif */
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Button */
+/* Tombol */
+.popup-form .form-actions {
+    text-align: center;
+}
+
+.popup-form .styled-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-form .styled-button:hover {
+    background-color: #0056b3;
+}
+.teks-search-container{
+    text-align: center;
+}
+.bawah{
+    margin: auto;
+    text-align: center;
+}
+
+

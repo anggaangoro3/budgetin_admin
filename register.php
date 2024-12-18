@@ -1,27 +1,25 @@
 <?php
 include 'db.php'; // Koneksi ke database
 global $conn;
-
-// Proses register jika form disubmit
+// Proses registrasi jika form disubmit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = htmlspecialchars($_POST['name']);
+    $username = htmlspecialchars($_POST['username']);
     $email = htmlspecialchars($_POST['email']);
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Enkripsi password
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-
-    // Query untuk memasukkan data ke tabel user
-    $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+    // Query untuk memasukkan data admin baru
+    $sql = "INSERT INTO admin (username, email, password) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $name, $email, $password);
+    $stmt->bind_param("sss", $username, $email, $password);
 
     if ($stmt->execute()) {
-        header("Location: add_user.php?register=success"); // Redirect ke budgetin.php jika sukses
-        exit;
+        $success = "Akun admin berhasil didaftarkan!";
     } else {
-        $error = "Gagal mendaftarkan pengguna: " . $conn->error;
+        $error = "Terjadi kesalahan: " . $stmt->error;
     }
 
     $stmt->close();
+    $conn->close();
 }
 ?>
 
@@ -30,34 +28,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EditData</title>
+    <title>Register Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/x-icon" href="img/favicon.png">
-    <link rel="stylesheet" href="../admin/styles.css">
-    <style>
-        body {
-            background: linear-gradient(120deg, #00B4DB, #0083B0);
-        }
-    </style>
 </head>
-<body class="flex items-center justify-center h-screen">
-<div class="back-button-container">
-    <button onclick="window.location.href='admin.php'" class="buttonStyle">Kembali</button>
-</div>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
 <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-    <div class="text-center mb-6">
-        <img src="img/logo-removebg-preview.png" alt="BudgetIn" class="w-32 mx-auto">
-    </div>
-    <h2 class="text-2xl font-bold text-center mb-4">Add User by Admin</h2>
-    <?php if (isset($error)): ?>
+    <h2 class="text-2xl font-bold text-center mb-6">Register Admin</h2>
+    <?php if (isset($success)): ?>
+        <div class="bg-green-100 text-green-700 p-4 rounded-lg mb-4 text-sm">
+            <?php echo $success; ?>
+        </div>
+    <?php elseif (isset($error)): ?>
         <div class="bg-red-100 text-red-700 p-4 rounded-lg mb-4 text-sm">
             <?php echo $error; ?>
         </div>
     <?php endif; ?>
-    <form method="POST" action="add_user.php" class="space-y-4">
+    <form method="POST" action="register.php" class="space-y-4">
         <div>
-            <label for="name" class="block text-gray-700 font-medium">Nama Lengkap</label>
-            <input type="text" id="name" name="name" required
+            <label for="username" class="block text-gray-700 font-medium">Username</label>
+            <input type="text" id="username" name="username" required
                    class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-300">
         </div>
         <div>
@@ -72,9 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <button type="submit"
                 class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
-            Add User
+            Register
         </button>
     </form>
+    <p class="text-center text-gray-600 text-sm mt-4">
+        Sudah punya akun? <a href="login.php" class="text-blue-500 hover:underline">Login</a>
+    </p>
 </div>
 </body>
 </html>
