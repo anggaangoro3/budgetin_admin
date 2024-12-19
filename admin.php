@@ -36,11 +36,9 @@ if ($result_balances) {
 } else { // Jangan ada HTML/PHP lain di antara ini
     die("Error query (balances): " . $conn->error);
 }
-?>
 
 
 
-<?php
 /* Delete data berdasarkan ID */
 if (isset($_GET['delete'])) {
     $user_id = (int) $_GET['delete']; // Cast ke integer untuk keamanan
@@ -160,7 +158,7 @@ $remaining_balance = $total_balance - $total_expense;
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="tabel_pengguna.php"> <!-- Link ke file untuk menampilkan tabel keseluruhan pengguna, kemudian terdapat searching berdasar email yang akan melakukan filter hanya ke data pengguna yang email nya di input -->
                 <i class="fas fa-user"></i>
                 <span class="nav-item">Tabel User</span>
             </a>
@@ -181,8 +179,30 @@ $remaining_balance = $total_balance - $total_expense;
 </aside>
 <!-- Main Content -->
 <main>
+    <body>
     <div class="wrapper">
         <h1>Dashboard Utama</h1>
+        <!-- Container Card -->
+        <div class="container-card">
+            <div class="card">
+                <h3>Total Pengguna</h3>
+                <p id="totalUsers">0</p>
+            </div>
+            <div class="card">
+                <h3>Saldo Akumuasi</h3>
+                <p id="totalBalance">Rp 0</p>
+            </div>
+            <div class="card">
+                <h3>Pengeluaran Akumulasi</h3>
+                <p id="totalExpenses">Rp 0</p>
+            </div>
+            <div class="card">
+                <h3>Sisa Saldo Akumulasi</h3>
+                <p id="remainingBalance">Rp 0</p>
+            </div>
+        </div>
+
+
         <!-- Conntainer Bagian Tabel -->
         <div class="container_index">
             <div class="table-container">
@@ -218,8 +238,6 @@ $remaining_balance = $total_balance - $total_expense;
                     </tbody>
                 </table>
             </div>
-            <button onclick="window.location.href='add_user.php'" class="buttonStyle">Tambah Pengguna</button>
-            <button onclick="window.location.href='edit_user.php'" class="buttonStyle">Edit Pengguna</button>
         </div>
         <div class="chart-container">
             <!-- Grafik Garis -->
@@ -230,8 +248,10 @@ $remaining_balance = $total_balance - $total_expense;
             <div class="chart-container-bar">
                 <h3 class="teks-grafik">Grafik Pemasukan Pengeluaran</h3>
                 <canvas id="pie-chart"></canvas>
+            </div>
         </div>
-    </div>
+
+    </body>
 </main>
 <!-- Footer Section -->
 <footer>
@@ -317,6 +337,24 @@ $remaining_balance = $total_balance - $total_expense;
             }
         });
     });
+    // Data dari PHP
+    const totalUsers = <?php echo json_encode(count($users)); ?>; // Total pengguna
+    const totalBalance = <?php echo json_encode($total_balance); ?>; // Total saldo
+    const totalExpenses = <?php echo json_encode($total_expense); ?>; // Total pengeluaran
+    const remainingBalance = <?php echo json_encode($remaining_balance); ?>; // Sisa saldo
+
+    // Formatter untuk Rupiah
+    const rupiahFormatter = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 2
+    });
+
+    // Update isi card dengan data dinamis
+    document.getElementById('totalUsers').innerText = totalUsers;
+    document.getElementById('totalBalance').innerText = rupiahFormatter.format(totalBalance); // Format ke Rupiah
+    document.getElementById('totalExpenses').innerText = rupiahFormatter.format(totalExpenses); // Format ke Rupiah
+    document.getElementById('remainingBalance').innerText = rupiahFormatter.format(remainingBalance); // Format ke Rupiah
 </script>
 </html>
 <?php

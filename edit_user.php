@@ -71,15 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="tabel_pengguna.php">
                         <i class="fas fa-user"></i>
                         <span class="nav-item">Tabel User</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="edit_user.php">
-                        <i class="fas fa-edit"></i>
-                        <span class="nav-item">Edit</span>
                     </a>
                 </li>
             </ul>
